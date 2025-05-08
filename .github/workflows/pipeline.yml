@@ -1,0 +1,19 @@
+name: Deployment pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  simple_deployment_pipeline:
+    runs-on: ubuntu-22.04
+    steps: 
+      - uses: actions/checkout@4     # checkouts the project source code from Git
+      - uses: actions/setup-node@v4
+        with:                        # pass the node version as a parameter to the setup-node action
+          node-version: '20'
+      - name: Install dependencies
+        run: npm install
+      - name: Check style
+        run: npm run eslint
