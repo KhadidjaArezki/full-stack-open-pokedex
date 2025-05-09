@@ -1,4 +1,5 @@
-const { test, describe, expect, beforeEach } = require('@playwright/test')
+/* eslint-disable no-unused-vars */
+import { test, describe, expect, beforeEach } from '@playwright/test'
 
 describe('Pokedex', () => {
   test('front page can be opened', async ({ page }) => {
