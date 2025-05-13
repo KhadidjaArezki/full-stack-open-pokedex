@@ -1,0 +1,16 @@
+name: Periodic Helth Check
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  scheduled_health_check:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Check the deployed service URL
+        uses: jtalk/url-health-check-action@v4
+        with:
+          # Check the following URLs one by one sequentially
+          url: https://full-stack-open-pokedex-n64h.onrender.com/health
