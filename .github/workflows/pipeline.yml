@@ -25,6 +25,15 @@ jobs:
         run: npm run eslint
       - name: Build
         run: npm run build
+      - name: Build Failed
+        if: ${{ failure() }}
+        run: |
+          curl -H "Content-Type: application/json" \
+          -X POST \
+          -d '{
+            "content": "commit ${{ github.sha }} broke the build"
+          }' \
+          ${{ secrets.DISCORD_WEBHOOK }}
       - name: Test
         run: npm run test
       - name: Install Playwright Browsers
@@ -68,14 +77,5 @@ jobs:
           -X POST \
           -d '{
             "content": "Deploy Succeeded! Live version at https://full-stack-open-pokedex-n64h.onrender.com/"
-          }' \
-          ${{ secrets.DISCORD_WEBHOOK }}
-      - name: Build Failed
-        if: ${{ failure() }}
-        run: |
-          curl -H "Content-Type: application/json" \
-          -X POST \
-          -d '{
-            "content": "commit ${{ github.sha }} broke the build"
           }' \
           ${{ secrets.DISCORD_WEBHOOK }}
