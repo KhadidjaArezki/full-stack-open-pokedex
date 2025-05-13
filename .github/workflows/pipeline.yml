@@ -56,7 +56,7 @@ jobs:
         with:                        # pass the node version as a parameter to the setup-node action
           node-version: '20'
       - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@1.73.0
+        uses: anothrNick/github-tag-action@e528bc2b9628971ce0e6f823f3052d1dcd9d512c
         if: ${{ github.env.CONDITION == 'true' }} 
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
