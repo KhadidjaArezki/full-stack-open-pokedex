@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  a_test_job:
+  a_skipped_test_job:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
