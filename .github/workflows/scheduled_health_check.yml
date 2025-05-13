@@ -1,10 +1,9 @@
 name: Periodic Helth Check
 
 on:
-  push:
-    branches:
-      - main
-
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '53 18 * * *'
 jobs:
   scheduled_health_check:
     runs-on: ubuntu-22.04
