@@ -61,3 +61,17 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           DEFAULT_BUMP: 'patch'
+      - name: A new version of Pekedex is deployed
+        uses: rjstone/discord-webhook-notify@v1
+        if: ${{ success() }}
+        with:
+          severity: info
+          details: live version https://full-stack-open-pokedex-n64h.onrender.com/
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: Build Failed
+        uses: rjstone/discord-webhook-notify@v1
+        if: ${{ failure() }}
+        with:
+          severity: error
+          details: commit ${{ github.sha }} broke the build
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
