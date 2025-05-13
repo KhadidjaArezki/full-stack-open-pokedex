@@ -8,6 +8,9 @@ on:
     branches: [main]
     types: [opened, synchronize]
 
+env:
+  CONDITION: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ', '), '#skip') }}
+
 jobs:
   simple_deployment_pipeline:
     runs-on: ubuntu-22.04
@@ -36,7 +39,9 @@ jobs:
           retention-days: 30
       - name: Trigger deployment on render
         uses: sws2apps/render-deployment@main #consider using pin for dependabot auto update
-        if: ${{ github.event_name == 'push' }}
+        # this job will be dependent on the above env.CONDITION, note the `github.` prefix
+        # which seem to be required while referencing the variable on the job level, but not the step level
+        if: ${{ github.env.CONDITION == 'true' }}
         with:
           serviceId: ${{ secrets.RENDER_SERVICE_ID }}
           apiKey: ${{ secrets.RENDER_API_KEY }}
@@ -52,7 +57,7 @@ jobs:
           node-version: '20'
       - name: Bump version and push tag
         uses: anothrNick/github-tag-action@1.73.0
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ github.env.CONDITION == 'true' }} 
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           DEFAULT_BUMP: 'patch'
