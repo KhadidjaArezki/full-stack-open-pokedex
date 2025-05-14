@@ -1,15 +1,15 @@
-name: Periodic Helth Check
-
-on:
-  schedule:
-    # * is a special character in YAML so you have to quote this string
-    - cron:  '53 18 * * *'
-jobs:
-  scheduled_health_check:
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Check the deployed service URL
-        uses: jtalk/url-health-check-action@v4
-        with:
-          # Check the following URLs one by one sequentially
-          url: https://full-stack-open-pokedex-n64h.onrender.com/health
+# name: Periodic Helth Check
+#
+# on:
+#   schedule:
+#     # * is a special character in YAML so you have to quote this string
+#     - cron:  '53 18 * * *'
+# jobs:
+#   scheduled_health_check:
+#     runs-on: ubuntu-22.04
+#     steps:
+#       - name: Check the deployed service URL
+#         uses: jtalk/url-health-check-action@v4
+#         with:
+#           # Check the following URLs one by one sequentially
+#           url: https://full-stack-open-pokedex-n64h.onrender.com/health
